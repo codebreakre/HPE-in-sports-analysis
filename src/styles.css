@@ -1,0 +1,13 @@
+/* The few styles Mantine props don't cover. */
+
+.stage-canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.tracking-chart text {
+  fill: var(--mantine-color-dimmed);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
