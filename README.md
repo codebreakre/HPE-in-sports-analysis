@@ -1,5 +1,7 @@
 # Human Pose Estimation in sports analysis
 
+**Төслийг хэрхэн ажиллуулах заавар (монгол хэлээр): [HOW_TO_RUN.md](HOW_TO_RUN.md).** The thesis report: [report/thesis-final.pdf](report/thesis-final.pdf).
+
 A monorepo (npm workspaces) with two apps:
 
 - `apps/web`: the web app (Vite + React + TypeScript). HPE in the browser, synchronization, results, analysis pages.
