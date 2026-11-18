@@ -1,0 +1,5 @@
+variant,group_a,group_b,group_gap,frame_diff_mean,frame_diff_p95,frame_diff_max
+hard,81.37,82.58,1.21,1.99,10.75,21.79
+ramp 0.2,81.17,81.56,0.39,1.31,5.1,8.86
+ramp 0.4,79.98,80.09,0.11,1.13,4.43,7.45
+drop,86.5,86.59,0.09,0.44,2.05,3.72

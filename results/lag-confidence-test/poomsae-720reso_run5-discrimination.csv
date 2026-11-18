@@ -1,0 +1,8 @@
+condition,pair_1_2_hard,pair_1_2_ramp_0.2,pair_1_2_ramp_0.4,pair_1_2_drop
+in step (original),82.82,83.41,82.13,88.14
+delayed 0.12 s,77.86,78.23,77.2,82.94
+delayed 0.2 s,73.79,74.06,73.17,78.72
+delayed 0.4 s,65.89,66.12,65.41,70.46
+delayed 0.8 s,54.05,53.99,53.55,63.16
+different motion (7 s away),48.09,48.7,50.25,66.01
+different motion (13 s away),46.77,47.45,50.67,68.02

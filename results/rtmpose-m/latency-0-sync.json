@@ -1,0 +1,808 @@
+{
+ "model": "rtmpose-m",
+ "modelLabel": "RTMPose-m (body7, 256×192)",
+ "source": "latency-0.mp4",
+ "sourcePath": "data/latency-0.mp4",
+ "createdAt": "2026-11-08T14:05:16.616Z",
+ "algorithm": "joint-angle sync v1",
+ "config": {
+  "persons": null,
+  "confThreshold": 0.3,
+  "maxGapSec": 1,
+  "smooth": true,
+  "smoothWindowSec": 0.3,
+  "windowSec": 3,
+  "hopSec": 0.5,
+  "tauMaxSec": 1.5,
+  "rhoMin": 0.3,
+  "weights": [
+   0.3333333333333333,
+   0.3333333333333333,
+   0.3333333333333333
+  ],
+  "minStdDeg": 3,
+  "minValidShare": 0.5,
+  "mirror": "auto"
+ },
+ "fps": 30,
+ "frameCount": 416,
+ "personCount": 2,
+ "assignment": {
+  "framesExact": 406,
+  "framesFewer": 0,
+  "framesMore": 10
+ },
+ "group": {
+  "score": 99.305,
+  "mostDeviating": null
+ },
+ "persons": [
+  {
+   "person": 1,
+   "score": 99.305,
+   "missingFrameRate": 0,
+   "interpolatedRate": 0,
+   "missingValueRate": 0
+  },
+  {
+   "person": 2,
+   "score": 99.305,
+   "missingFrameRate": 0,
+   "interpolatedRate": 0.001,
+   "missingValueRate": 0
+  }
+ ],
+ "pairs": [
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "score": 99.305,
+   "pose": 0.99,
+   "corr": 0.989,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.89,
+   "lagReliable": true,
+   "mirrorShare": 0,
+   "parts": {
+    "arms": 99.269,
+    "legs": 99.273,
+    "torso": 99.848
+   },
+   "windowsScored": 22
+  }
+ ],
+ "timeline": [
+  {
+   "startTime": 0,
+   "endTime": 2.967,
+   "centerTime": 1.484,
+   "group": 99.826,
+   "pairs": [
+    99.826
+   ]
+  },
+  {
+   "startTime": 0.5,
+   "endTime": 3.467,
+   "centerTime": 1.984,
+   "group": 99.798,
+   "pairs": [
+    99.798
+   ]
+  },
+  {
+   "startTime": 1,
+   "endTime": 3.967,
+   "centerTime": 2.484,
+   "group": 99.82,
+   "pairs": [
+    99.82
+   ]
+  },
+  {
+   "startTime": 1.5,
+   "endTime": 4.467,
+   "centerTime": 2.984,
+   "group": 99.832,
+   "pairs": [
+    99.832
+   ]
+  },
+  {
+   "startTime": 2,
+   "endTime": 4.967,
+   "centerTime": 3.484,
+   "group": 99.747,
+   "pairs": [
+    99.747
+   ]
+  },
+  {
+   "startTime": 2.5,
+   "endTime": 5.467,
+   "centerTime": 3.984,
+   "group": 98.859,
+   "pairs": [
+    98.859
+   ]
+  },
+  {
+   "startTime": 3,
+   "endTime": 5.967,
+   "centerTime": 4.483,
+   "group": 98.913,
+   "pairs": [
+    98.913
+   ]
+  },
+  {
+   "startTime": 3.5,
+   "endTime": 6.467,
+   "centerTime": 4.983,
+   "group": 98.952,
+   "pairs": [
+    98.952
+   ]
+  },
+  {
+   "startTime": 4,
+   "endTime": 6.967,
+   "centerTime": 5.483,
+   "group": 98.902,
+   "pairs": [
+    98.902
+   ]
+  },
+  {
+   "startTime": 4.5,
+   "endTime": 7.467,
+   "centerTime": 5.983,
+   "group": 98.446,
+   "pairs": [
+    98.446
+   ]
+  },
+  {
+   "startTime": 5,
+   "endTime": 7.967,
+   "centerTime": 6.483,
+   "group": 98.469,
+   "pairs": [
+    98.469
+   ]
+  },
+  {
+   "startTime": 5.5,
+   "endTime": 8.467,
+   "centerTime": 6.984,
+   "group": 99.398,
+   "pairs": [
+    99.398
+   ]
+  },
+  {
+   "startTime": 6,
+   "endTime": 8.967,
+   "centerTime": 7.484,
+   "group": 99.362,
+   "pairs": [
+    99.362
+   ]
+  },
+  {
+   "startTime": 6.5,
+   "endTime": 9.467,
+   "centerTime": 7.984,
+   "group": 98.825,
+   "pairs": [
+    98.825
+   ]
+  },
+  {
+   "startTime": 7,
+   "endTime": 9.967,
+   "centerTime": 8.484,
+   "group": 99.054,
+   "pairs": [
+    99.054
+   ]
+  },
+  {
+   "startTime": 7.5,
+   "endTime": 10.467,
+   "centerTime": 8.984,
+   "group": 99.36,
+   "pairs": [
+    99.36
+   ]
+  },
+  {
+   "startTime": 8,
+   "endTime": 10.967,
+   "centerTime": 9.484,
+   "group": 99.373,
+   "pairs": [
+    99.373
+   ]
+  },
+  {
+   "startTime": 8.5,
+   "endTime": 11.467,
+   "centerTime": 9.984,
+   "group": 99.354,
+   "pairs": [
+    99.354
+   ]
+  },
+  {
+   "startTime": 9,
+   "endTime": 11.967,
+   "centerTime": 10.484,
+   "group": 99.341,
+   "pairs": [
+    99.341
+   ]
+  },
+  {
+   "startTime": 9.5,
+   "endTime": 12.467,
+   "centerTime": 10.984,
+   "group": 99.683,
+   "pairs": [
+    99.683
+   ]
+  },
+  {
+   "startTime": 10,
+   "endTime": 12.967,
+   "centerTime": 11.484,
+   "group": 99.649,
+   "pairs": [
+    99.649
+   ]
+  },
+  {
+   "startTime": 10.5,
+   "endTime": 13.467,
+   "centerTime": 11.984,
+   "group": 99.743,
+   "pairs": [
+    99.743
+   ]
+  }
+ ],
+ "windows": [
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 0,
+   "endFrame": 90,
+   "startTime": 0,
+   "endTime": 2.967,
+   "centerTime": 1.484,
+   "score": 99.826,
+   "pose": 0.996,
+   "corr": 0.999,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.99,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.753,
+    "legs": 99.898,
+    "torso": 99.91
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 15,
+   "endFrame": 105,
+   "startTime": 0.5,
+   "endTime": 3.467,
+   "centerTime": 1.984,
+   "score": 99.798,
+   "pose": 0.995,
+   "corr": 0.999,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.989,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.713,
+    "legs": 99.884,
+    "torso": 99.907
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 30,
+   "endFrame": 120,
+   "startTime": 1,
+   "endTime": 3.967,
+   "centerTime": 2.484,
+   "score": 99.82,
+   "pose": 0.995,
+   "corr": 0.999,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.99,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.764,
+    "legs": 99.877,
+    "torso": 99.902
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 45,
+   "endFrame": 135,
+   "startTime": 1.5,
+   "endTime": 4.467,
+   "centerTime": 2.984,
+   "score": 99.832,
+   "pose": 0.996,
+   "corr": 0.999,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.993,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.798,
+    "legs": 99.866,
+    "torso": 99.887
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 60,
+   "endFrame": 150,
+   "startTime": 2,
+   "endTime": 4.967,
+   "centerTime": 3.484,
+   "score": 99.747,
+   "pose": 0.994,
+   "corr": 0.998,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.979,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.673,
+    "legs": 99.822,
+    "torso": 99.89
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 75,
+   "endFrame": 165,
+   "startTime": 2.5,
+   "endTime": 5.467,
+   "centerTime": 3.984,
+   "score": 98.859,
+   "pose": 0.988,
+   "corr": 0.978,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.887,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.434,
+    "legs": 98.284,
+    "torso": 99.829
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 90,
+   "endFrame": 180,
+   "startTime": 3,
+   "endTime": 5.967,
+   "centerTime": 4.483,
+   "score": 98.913,
+   "pose": 0.988,
+   "corr": 0.98,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.885,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.435,
+    "legs": 98.391,
+    "torso": 99.827
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 105,
+   "endFrame": 195,
+   "startTime": 3.5,
+   "endTime": 6.467,
+   "centerTime": 4.983,
+   "score": 98.952,
+   "pose": 0.988,
+   "corr": 0.981,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.899,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.475,
+    "legs": 98.429,
+    "torso": 99.796
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 120,
+   "endFrame": 210,
+   "startTime": 4,
+   "endTime": 6.967,
+   "centerTime": 5.483,
+   "score": 98.902,
+   "pose": 0.987,
+   "corr": 0.98,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.9,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.412,
+    "legs": 98.392,
+    "torso": 99.786
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 135,
+   "endFrame": 225,
+   "startTime": 4.5,
+   "endTime": 7.467,
+   "centerTime": 5.983,
+   "score": 98.446,
+   "pose": 0.983,
+   "corr": 0.971,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.829,
+   "mode": "normal",
+   "parts": {
+    "arms": 98.678,
+    "legs": 98.214,
+    "torso": 99.814
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 150,
+   "endFrame": 240,
+   "startTime": 5,
+   "endTime": 7.967,
+   "centerTime": 6.483,
+   "score": 98.469,
+   "pose": 0.984,
+   "corr": 0.97,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.792,
+   "mode": "normal",
+   "parts": {
+    "arms": 98.711,
+    "legs": 98.227,
+    "torso": 99.811
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 165,
+   "endFrame": 255,
+   "startTime": 5.5,
+   "endTime": 8.467,
+   "centerTime": 6.984,
+   "score": 99.398,
+   "pose": 0.99,
+   "corr": 0.992,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.862,
+   "mode": "normal",
+   "parts": {
+    "arms": 98.937,
+    "legs": 99.859,
+    "torso": 99.872
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 180,
+   "endFrame": 270,
+   "startTime": 6,
+   "endTime": 8.967,
+   "centerTime": 7.484,
+   "score": 99.362,
+   "pose": 0.99,
+   "corr": 0.991,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.868,
+   "mode": "normal",
+   "parts": {
+    "arms": 98.865,
+    "legs": 99.858,
+    "torso": 99.875
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 195,
+   "endFrame": 285,
+   "startTime": 6.5,
+   "endTime": 9.467,
+   "centerTime": 7.984,
+   "score": 98.825,
+   "pose": 0.985,
+   "corr": 0.98,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.818,
+   "mode": "normal",
+   "parts": {
+    "arms": 98.701,
+    "legs": 98.949,
+    "torso": 99.888
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 210,
+   "endFrame": 300,
+   "startTime": 7,
+   "endTime": 9.967,
+   "centerTime": 8.484,
+   "score": 99.054,
+   "pose": 0.985,
+   "corr": 0.986,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.825,
+   "mode": "normal",
+   "parts": {
+    "arms": 98.006,
+    "legs": 99.362,
+    "torso": 99.895
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 225,
+   "endFrame": 315,
+   "startTime": 7.5,
+   "endTime": 10.467,
+   "centerTime": 8.984,
+   "score": 99.36,
+   "pose": 0.988,
+   "corr": 0.992,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.883,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.335,
+    "legs": 99.385,
+    "torso": 99.885
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 240,
+   "endFrame": 330,
+   "startTime": 8,
+   "endTime": 10.967,
+   "centerTime": 9.484,
+   "score": 99.373,
+   "pose": 0.988,
+   "corr": 0.993,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.882,
+   "mode": "normal",
+   "parts": {
+    "arms": 98.653,
+    "legs": 99.353,
+    "torso": 99.857
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 255,
+   "endFrame": 345,
+   "startTime": 8.5,
+   "endTime": 11.467,
+   "centerTime": 9.984,
+   "score": 99.354,
+   "pose": 0.988,
+   "corr": 0.992,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.882,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.397,
+    "legs": 99.311,
+    "torso": 99.838
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 270,
+   "endFrame": 360,
+   "startTime": 9,
+   "endTime": 11.967,
+   "centerTime": 10.484,
+   "score": 99.341,
+   "pose": 0.988,
+   "corr": 0.993,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.912,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.4,
+    "legs": 99.283,
+    "torso": 99.803
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 285,
+   "endFrame": 375,
+   "startTime": 9.5,
+   "endTime": 12.467,
+   "centerTime": 10.984,
+   "score": 99.683,
+   "pose": 0.992,
+   "corr": 0.998,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.957,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.57,
+    "legs": 99.796,
+    "torso": 99.798
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 300,
+   "endFrame": 390,
+   "startTime": 10,
+   "endTime": 12.967,
+   "centerTime": 11.484,
+   "score": 99.649,
+   "pose": 0.992,
+   "corr": 0.997,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.957,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.518,
+    "legs": 99.779,
+    "torso": 99.791
+   }
+  },
+  {
+   "pair": [
+    1,
+    2
+   ],
+   "startFrame": 315,
+   "endFrame": 405,
+   "startTime": 10.5,
+   "endTime": 13.467,
+   "centerTime": 11.984,
+   "score": 99.743,
+   "pose": 0.993,
+   "corr": 0.999,
+   "lag": 1,
+   "lagFrames": 0,
+   "lagSec": 0,
+   "rhoMax": 0.981,
+   "mode": "normal",
+   "parts": {
+    "arms": 99.698,
+    "legs": 99.789,
+    "torso": 99.802
+   }
+  }
+ ]
+}

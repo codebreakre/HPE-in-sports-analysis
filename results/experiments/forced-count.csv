@@ -1,0 +1,4 @@
+video,persons_given,frames_exact,frames_fewer,frames_more,pair12,lag_sec,lag_error_ms,rho_max,missing_frames_p2
+distance-25-00f,2,114,221,12,91.076,0,0,0.485,0.637
+distance-25-08f,2,129,212,6,71.447,0.32,0,0.542,0.611
+resolution-240p-08f,2,81,0,266,71.442,0.32,0,0.89,0

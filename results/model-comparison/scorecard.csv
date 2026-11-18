@@ -1,0 +1,31 @@
+criterion,label,weight,model,value,rank,score,total
+all_tracked_rate,All 3 people found (% frames),0.25,yolo11n-pose,1.0,1,1.0,0.9008
+all_tracked_rate,All 3 people found (% frames),0.25,yolov8n-pose,1.0,1,1.0,0.9086
+all_tracked_rate,All 3 people found (% frames),0.25,rtmpose-m,1.0,1,1.0,0.8947
+all_tracked_rate,All 3 people found (% frames),0.25,vitpose-b,1.0,1,1.0,0.8391
+all_tracked_rate,All 3 people found (% frames),0.25,mediapipe-pose-full,0.302,5,0.302,0.5903
+clean_frame_rate,Frames without false positives (%),0.1,yolo11n-pose,0.978,2,0.9919,0.9008
+clean_frame_rate,Frames without false positives (%),0.1,yolov8n-pose,0.986,1,1.0,0.9086
+clean_frame_rate,Frames without false positives (%),0.1,rtmpose-m,0.971,3,0.9848,0.8947
+clean_frame_rate,Frames without false positives (%),0.1,vitpose-b,0.971,3,0.9848,0.8391
+clean_frame_rate,Frames without false positives (%),0.1,mediapipe-pose-full,0.957,5,0.9706,0.5903
+consensus_pck,Agreement PCK@0.05 (%),0.2,yolo11n-pose,91.337,4,0.9783,0.9008
+consensus_pck,Agreement PCK@0.05 (%),0.2,yolov8n-pose,92.529,3,0.9911,0.9086
+consensus_pck,Agreement PCK@0.05 (%),0.2,rtmpose-m,93.3605,1,1.0,0.8947
+consensus_pck,Agreement PCK@0.05 (%),0.2,vitpose-b,92.8761,2,0.9948,0.8391
+consensus_pck,Agreement PCK@0.05 (%),0.2,mediapipe-pose-full,71.1266,5,0.7618,0.5903
+jitter_pct,Jitter (% body height),0.2,yolo11n-pose,2.065,3,0.7235,0.9008
+jitter_pct,Jitter (% body height),0.2,yolov8n-pose,2.088,4,0.7155,0.9086
+jitter_pct,Jitter (% body height),0.2,rtmpose-m,1.494,1,1.0,0.8947
+jitter_pct,Jitter (% body height),0.2,vitpose-b,1.891,2,0.7901,0.8391
+jitter_pct,Jitter (% body height),0.2,mediapipe-pose-full,9.015,5,0.1657,0.5903
+limb_cv_pct,Limb length CV (%),0.1,yolo11n-pose,20.211,3,0.9262,0.9008
+limb_cv_pct,Limb length CV (%),0.1,yolov8n-pose,21.776,4,0.8597,0.9086
+limb_cv_pct,Limb length CV (%),0.1,rtmpose-m,18.72,1,1.0,0.8947
+limb_cv_pct,Limb length CV (%),0.1,vitpose-b,20.015,2,0.9353,0.8391
+limb_cv_pct,Limb length CV (%),0.1,mediapipe-pose-full,22.759,5,0.8225,0.5903
+mean_total_ms,Time per frame (ms),0.15,yolo11n-pose,46.349,3,0.7908,0.9008
+mean_total_ms,Time per frame (ms),0.15,yolov8n-pose,41.874,2,0.8753,0.9086
+mean_total_ms,Time per frame (ms),0.15,rtmpose-m,119.022,4,0.308,0.8947
+mean_total_ms,Time per frame (ms),0.15,vitpose-b,137.082,5,0.2674,0.8391
+mean_total_ms,Time per frame (ms),0.15,mediapipe-pose-full,36.653,1,1.0,0.5903

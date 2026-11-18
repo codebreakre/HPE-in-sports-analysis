@@ -1,0 +1,3 @@
+condition,lag_frames,true_lag_sec,video,frames,fps,width,height,ms_per_frame,group,pair12,persons,frames_exact,pose,corr,lag_score,lag_sec,rho_max,lag_reliable,lag_error_ms,mirror_share,arms,legs,torso,person_scores,most_deviating,moments,moments_list,ramp_group,ramp_pair12,nosmooth_group,nosmooth_pair12
+mirrored,0,0,data/experiments/mirror-00f.mp4,347,25,1920,1080,56.83,99.309,99.309,2,344,0.988,0.992,1,0,0.922,1,0,1,99.042,99.565,99.591,99.309 99.309,,0,,99.309,99.309,98.509,98.509
+"mirrored, lag 8 frames",8,0.32,data/experiments/mirror-08f.mp4,347,25,1920,1080,58.24,71.512,71.512,2,345,0.833,0.522,0.79,0.32,0.918,1,0,0.899,69.27,70.894,73.06,71.512 71.512,,1,0-13.86s p1-2 lag 0.32,71.723,71.723,71.536,71.536

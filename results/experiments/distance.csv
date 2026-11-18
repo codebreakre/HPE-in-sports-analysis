@@ -1,0 +1,9 @@
+condition,size_pct,lag_frames,true_lag_sec,video,frames,fps,width,height,ms_per_frame,group,pair12,persons,frames_exact,pose,corr,lag_score,lag_sec,rho_max,lag_reliable,lag_error_ms,mirror_share,arms,legs,torso,person_scores,most_deviating,moments,moments_list,ramp_group,ramp_pair12,nosmooth_group,nosmooth_pair12
+copy at 100 %,100,0,0,data/experiments/distance-100-00f.mp4,347,25,1920,1080,56.88,99.798,99.798,2,345,0.996,0.998,1,0,0.984,1,0,0,99.778,99.713,99.924,99.798 99.798,,0,,99.798,99.798,99.379,99.379
+copy at 75 %,75,0,0,data/experiments/distance-75-00f.mp4,347,25,1920,1080,57.68,99.412,99.412,2,345,0.991,0.992,1,0,0.942,1,0,0,99.394,99.236,99.626,99.412 99.412,,0,,99.412,99.412,98.723,98.723
+copy at 50 %,50,0,0,data/experiments/distance-50-00f.mp4,347,25,1920,1080,59.36,99.315,99.315,2,324,0.989,0.991,1,0,0.922,1,0,0,99.23,99.225,99.572,99.315 99.315,,0,,99.315,99.315,98.717,98.717
+copy at 25 %,25,0,0,data/experiments/distance-25-00f.mp4,347,25,1920,1080,49.94,,,1,221,,,,,,0,,,,,,,,0,,,,,
+"copy at 100 %, lag 8 frames",100,8,0.32,data/experiments/distance-100-08f.mp4,347,25,1920,1080,67.09,71.778,71.778,2,344,0.839,0.525,0.789,0.32,0.988,1,0,0,69.366,73.283,75.097,71.778 71.778,,1,0-13.86s p1-2 lag 0.32,71.778,71.778,71.837,71.837
+"copy at 75 %, lag 8 frames",75,8,0.32,data/experiments/distance-75-08f.mp4,347,25,1920,1080,58.46,71.82,71.82,2,344,0.839,0.526,0.789,0.32,0.952,1,0,0,69.565,73.24,75.12,71.82 71.82,,1,0-13.86s p1-2 lag 0.32,71.82,71.82,71.881,71.881
+"copy at 50 %, lag 8 frames",50,8,0.32,data/experiments/distance-50-08f.mp4,347,25,1920,1080,61.13,71.813,71.813,2,321,0.837,0.528,0.789,0.32,0.863,1,0,0,69.492,73.257,75.103,71.813 71.813,,1,0-13.86s p1-2 lag 0.32,71.813,71.813,71.866,71.866
+"copy at 25 %, lag 8 frames",25,8,0.32,data/experiments/distance-25-08f.mp4,347,25,1920,1080,48.24,,,1,212,,,,,,0,,,,,,,,0,,,,,
