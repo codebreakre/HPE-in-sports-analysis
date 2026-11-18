@@ -1,0 +1,9 @@
+# HPE server (apps/server). Install with `npm run server:setup` (creates apps/server/.venv).
+fastapi>=0.115
+uvicorn>=0.30
+python-multipart>=0.0.9
+numpy>=2.0
+opencv-python-headless>=4.10
+# CUDA build; [cuda,cudnn] pulls the NVIDIA runtime DLLs from pip, so no CUDA toolkit install is needed.
+# Without a usable GPU it falls back to the CPU provider.
+onnxruntime-gpu[cuda,cudnn]>=1.22
