@@ -8,5 +8,16 @@ data/*
 results/**/*.mp4
 results/**/*.webm
 # Model weights are large (ViTPose is 344 MB); fetch them with `npm run models`
-public/models/*
-!public/models/yolo11n-pose.onnx
+apps/web/public/models/*
+!apps/web/public/models/yolo11n-pose.onnx
+
+# Python server
+apps/server/.venv/
+apps/server/**/__pycache__/
+apps/server/jobs/
+
+# Local tools (FFmpeg for the experiments)
+tools/
+
+# Zipped copies of the report / project for sharing
+*.zip

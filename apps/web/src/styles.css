@@ -1,0 +1,66 @@
+/* The few styles Mantine props don't cover. */
+
+.stage-canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.tracking-chart text {
+  fill: var(--mantine-color-dimmed);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Resolution-check charts. Resolution is ordered, so one blue ramp: low resolution = closest to the
+   surface. Light and dark steps were each checked against their surface (#ffffff / #242424). */
+:root {
+  --res-1: #86b6ef;
+  --res-2: #2a78d6;
+  --res-3: #104281;
+  /* sequential ramp for the keypoint heatmap (near zero → high) */
+  --seq-0: #f4f8fd;
+  --seq-1: #9ec5f4;
+  --seq-2: #3987e5;
+  --seq-3: #1c5cab;
+  --seq-4: #0d366b;
+  /* text on each heatmap step */
+  --seq-ink-0: #0b0b0b; --seq-ink-1: #0b0b0b; --seq-ink-2: #0b0b0b; --seq-ink-3: #ffffff; --seq-ink-4: #ffffff;
+}
+:root[data-mantine-color-scheme="dark"] {
+  --res-1: #256abf;
+  --res-2: #5598e7;
+  --res-3: #b7d3f6;
+  --seq-0: #2b2f36;
+  --seq-1: #1c5cab;
+  --seq-2: #2a78d6;
+  --seq-3: #6da7ec;
+  --seq-4: #cde2fb;
+  --seq-ink-0: #f0efec; --seq-ink-1: #f0efec; --seq-ink-2: #ffffff; --seq-ink-3: #0b0b0b; --seq-ink-4: #0b0b0b;
+}
+
+.analysis-chart text {
+  fill: var(--mantine-color-dimmed);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.analysis-chart .value-label {
+  fill: var(--mantine-color-text);
+  font-size: 10px;
+}
+
+/* Synchronization timeline: one line per pair, categorical slots in fixed order (validated with the
+   dataviz palette validator, light vs #ffffff and dark vs #242424); the group line uses the text color. */
+:root {
+  --pair-1: #2a78d6; --pair-2: #eb6834; --pair-3: #1baf7a; --pair-4: #eda100;
+  --pair-5: #e87ba4; --pair-6: #008300; --pair-7: #6250d6; --pair-8: #e34948;
+}
+:root[data-mantine-color-scheme="dark"] {
+  --pair-1: #3987e5; --pair-2: #d95926; --pair-3: #199e70; --pair-4: #c98500;
+  --pair-5: #d55181; --pair-6: #008300; --pair-7: #9085e9; --pair-8: #e66767;
+}
+.sync-chart text {
+  fill: var(--mantine-color-dimmed);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}

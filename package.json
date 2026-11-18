@@ -1,33 +1,22 @@
 {
-  "name": "browser-hpe",
+  "name": "hpe-in-sports-analysis",
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "workspaces": [
+    "apps/web"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "npm run typecheck && vite build",
-    "preview": "vite preview",
-    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
-    "models": "node scripts/download-models.ts"
-  },
-  "dependencies": {
-    "@mantine/core": "9.6.2",
-    "@mantine/hooks": "9.6.2",
-    "@mediapipe/tasks-vision": "1.0.1",
-    "@ultralytics/yolo": "^0.0.50",
-    "mp4-muxer": "^5.2.2",
-    "onnxruntime-web": "1.30.0",
-    "react": "19.3.0",
-    "react-dom": "19.3.0"
-  },
-  "devDependencies": {
-    "@types/node": "26.6.1",
-    "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0",
-    "@vitejs/plugin-react": "6.1.1",
-    "postcss-preset-mantine": "1.18.0",
-    "postcss-simple-vars": "7.0.1",
-    "typescript": "7.0.2",
-    "vite": "^8.3.2"
+    "dev": "npm run dev -w @hpe/web",
+    "build": "npm run build -w @hpe/web",
+    "preview": "npm run preview -w @hpe/web",
+    "typecheck": "npm run typecheck -w @hpe/web",
+    "models": "node apps/web/scripts/download-models.ts",
+    "sync": "node apps/web/scripts/sync.ts",
+    "sync-delay-test": "node apps/web/scripts/sync-delay-test.ts",
+    "server:setup": "node apps/server/run.mjs setup",
+    "server": "node apps/server/run.mjs",
+    "lag-confidence-test": "node apps/web/scripts/lag-confidence-test.ts",
+    "experiments": "node apps/web/scripts/experiments.ts"
   }
 }
