@@ -1,0 +1,161 @@
+%----------------------------------------------------------------------------------------
+%   Доорх хэсгийг өөрчлөх шаардлагагүй
+%----------------------------------------------------------------------------------------
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+\documentclass[12pt,A4]{report}
+
+\usepackage{fontspec,xltxtra,xunicode}
+\setmainfont[Ligatures=TeX]{Times New Roman}
+\setsansfont{Arial}
+\setmonofont[Scale=0.85]{DejaVu Sans Mono}
+
+% \usepackage[utf8x]{inputenc}
+% \usepackage[mongolian]{babel}
+%\usepackage{natbib}
+\usepackage{geometry}
+%\usepackage{fancyheadings} fancyheadings is obsolete: replaced by fancyhdr. JL
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsbsy}
+\usepackage{dcolumn,array}
+\usepackage{tocloft}
+\usepackage{dics}
+\renewcommand{\tablename}{Хүснэгт}
+\renewcommand{\bibname}{Ном зүй}
+\setlength{\emergencystretch}{3em}
+\setlength{\headheight}{15pt}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{nomencl}
+\usepackage{upgreek}
+\newcommand{\argmin}{\arg\!\min}
+\usepackage{mathtools}
+\usepackage[hidelinks]{hyperref}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\makeatletter
+\usepackage{caption}
+\captionsetup[table]{belowskip=0.5pt}
+\usepackage{subfiles}
+
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Код}
+\renewcommand{\lstlistlistingname}{\lstlistingname ын жагсаалт}
+
+\usepackage{color}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+ 
+\lstdefinestyle{mystyle}{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    %basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=false,                 
+    numbers=left,                    
+    numbersep=10pt,                  
+    showspaces=false,                
+    showstringspaces=true,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle, label=DescriptiveLabel} 
+
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+\makenomenclature
+\begin{document}
+
+
+%----------------------------------------------------------------------------------------
+%   Өөрийн мэдээллээ оруулах хэсэг
+%----------------------------------------------------------------------------------------
+
+% Дипломийн ажлын сэдэв
+\title{Спортын шинжилгээнд хүний байрлалын тооцооллыг ашиглах нь}
+% Дипломын ажлын англи нэр
+\titleEng{Using human pose estimation in sport analytics}
+% Өөрийн овог нэрийг бүтнээр нь бичнэ
+\author{Баатар овогтой Түвшинжаргал}
+% Өөрийн овгийн эхний үсэг нэрээ бичнэ
+\authorShort{Б.Түвшинжаргал}
+% Удирдагчийн зэрэг цол овгийн эхний үсэг нэр
+\supervisor{Дэд Профессор Б.Наранчимэг}
+
+% СиСи дугаар
+\sisiId{22B1NUM6969}
+% Их сургуулийн нэр
+\university{МОНГОЛ УЛСЫН ИХ СУРГУУЛЬ}
+% Бүрэлдэхүүн сургуулийн нэр
+\faculty{МЭДЭЭЛЛИЙН ТЕХНОЛОГИ, ЭЛЕКТРОНИКИЙН СУРГУУЛЬ}
+% Тэнхимийн нэр
+\department{МЭДЭЭЛЭЛ, КОМПЬЮТЕРЫН УХААНЫ ТЭНХИМ}
+% Зэргийн нэр
+\degreeName{Бакалаврын судалгааны ажил}
+% Суралцаж буй хөтөлбөрийн нэр
+\programeName{Мэдээллийн систем}
+% Хэвлэгдсэн газар
+\cityName{Улаанбаатар}
+% Хэвлэгдсэн огноо
+\gradyear{2026 оны 11 дүгээр сар}
+
+
+%----------------------------------------------------------------------------------------
+%   Доорх хэсгийг өөрчлөх шаардлагагүй
+%----------------------------------------------------------------------------------------
+\include{main-pre}
+
+% Удиртгал abstract.tex файлд бичигдсэн
+\include{abstract}
+
+%----------------------------------------------------------------------------------------
+%   Үндсэн хэсэг
+%----------------------------------------------------------------------------------------
+% Толгой гарчиг: зүүн талд дэд бүлэг, баруун талд бүлэг. Урт гарчиг давхцахгүйн тулд
+% тус бүрийг өөрийн өргөнд багтааж, шаардлагатай бол хоёр мөрөнд хуваана.
+\fancyhead[L]{\fancyplain{}{\parbox[b]{0.50\textwidth}{\raggedright\slshape\rightmark}}}
+\fancyhead[R]{\fancyplain{}{\parbox[b]{0.46\textwidth}{\raggedleft\slshape\leftmark}}}
+
+% Урт гарчгийн оронд толгой гарчигт богино нэр харуулах: \headshort{Богино нэр} гэж
+% \chapter эсвэл \section-ий өмнө бичнэ. Гарчигийн жагсаалтад бүтэн нэр хэвээр үлдэнэ.
+\makeatletter
+\let\@headshort\@empty
+\newcommand{\headshort}[1]{\gdef\@headshort{#1}}
+\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{\ifnum\c@secnumdepth>\z@\thesection.\ \fi\ifx\@headshort\@empty #1\else\@headshort\fi}}\global\let\@headshort\@empty}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\ifnum\c@secnumdepth>\m@ne\@chapapp\ \thechapter.\ \fi\ifx\@headshort\@empty #1\else\@headshort\fi}}{}\global\let\@headshort\@empty}
+\makeatother
+
+\input{chapter1}
+\input{chapter2}
+\input{chapter3}
+\input{chapter4}
+
+%----------------------------------------------------------------------------------------
+%   Дүгнэлт
+%----------------------------------------------------------------------------------------
+\input{conclusion}
+
+%----------------------------------------------------------------------------------------
+%   Ном зүй
+%----------------------------------------------------------------------------------------
+\singlespace
+\addcontentsline{toc}{part}{НОМ ЗҮЙ}
+\input{bibliography}
+
+\end{document}

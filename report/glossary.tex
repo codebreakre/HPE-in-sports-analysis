@@ -1,0 +1,85 @@
+%----------------------------------------------------------------------------------------
+%   Түлхүүр үгийн тайлбар
+%   Шинэ үг нэмэхдээ хүснэгтэд мөр нэмнэ. Цагаан толгойн дарааллыг хадгална уу.
+%----------------------------------------------------------------------------------------
+\newpage
+\begingroup
+\renewcommand{\headrulewidth}{0pt}
+\markboth{}{}
+\begin{center}
+\textbf{\large ТҮЛХҮҮР ҮГИЙН ТАЙЛБАР}
+\end{center}
+
+\singlespace
+\renewcommand{\arraystretch}{1.35}
+
+\noindent\textbf{Товчилсон үг}
+
+{\small
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.15\textwidth}|>{\raggedright\arraybackslash}p{0.33\textwidth}|>{\raggedright\arraybackslash}p{0.43\textwidth}|}
+\hline
+\textbf{Товчлол} & \textbf{Англи нэр} & \textbf{Тайлбар} \\ \hline
+\endhead
+2D, 3D & Two-, Three-Dimensional & Хоёр хэмжээст, гурван хэмжээст \\ \hline
+API & Application Programming Interface & Програмууд хоорондоо хүсэлт илгээж харилцах интерфейс \\ \hline
+COCO & Common Objects in Context & Хүний гол цэгийн тэмдэглэгээтэй, өргөн хэрэглэгддэг зургийн өгөгдлийн сан \\ \hline
+CPU & Central Processing Unit & Компьютерын төв процессор \\ \hline
+CSV & Comma-Separated Values & Таслалаар тусгаарласан хүснэгтэн өгөгдлийн файлын формат \\ \hline
+CUDA & Compute Unified Device Architecture & NVIDIA-ийн GPU дээр ерөнхий тооцоолол хийх платформ \\ \hline
+CV & Coefficient of Variation & Хэлбэлзлийн коэффициент \\ \hline
+DTW & Dynamic Time Warping & Динамик цагийн хазайлт; хурд нь ялгаатай хоёр цувааг харьцуулах арга \\ \hline
+GPU & Graphics Processing Unit & График процессор (видео карт) \\ \hline
+HPE & Human Pose Estimation & Хүний байрлал тодорхойлох \\ \hline
+HRNet & High-Resolution Network & Өндөр нягтаршилтай дүрслэлд суурилсан HPE загвар \\ \hline
+JSON & JavaScript Object Notation & Бүтэцтэй өгөгдөл хадгалах текст формат \\ \hline
+LSP & Leeds Sports Pose & Спортын байрлалын өгөгдлийн сан \\ \hline
+MAE & Mean Absolute Error & Дундаж абсолют алдаа \\ \hline
+MP4 & MPEG-4 Part 14 & Видео файлын формат \\ \hline
+MPII & MPII Human Pose & Хүний байрлалын өгөгдлийн сан \\ \hline
+NMS & Non-Maximum Suppression & Давхацсан илрүүлэлтүүдээс хамгийн өндөр итгэлцэлтэйг үлдээх алхам \\ \hline
+ONNX & Open Neural Network Exchange & Нейрон сүлжээний загварыг өөр орчинд шилжүүлэх нээлттэй формат \\ \hline
+PAF & Part Affinity Fields & Хэсгийн холбоосын талбар; OpenPose-д гол цэгүүдийг хүн тус бүрээр холбоход ашиглана \\ \hline
+PCK & Percentage of Correct Keypoints & Зөв илэрсэн гол цэгийн хувь \\ \hline
+RTMPose & Real-Time Multi-person Pose Estimation & Бодит хугацааны олон хүний байрлал тодорхойлох загвар \\ \hline
+SHA-256 & Secure Hash Algorithm (256-bit) & Файл ижил эсэхийг шалгах хэш функц \\ \hline
+SimCC & Simple Coordinate Classification & RTMPose-ийн гол цэгийн x, y координатыг тэнхлэг тус бүрээр ангилж тодорхойлох гаралт \\ \hline
+ViT & Vision Transformer & Зургийн трансформер; ViTPose загварын суурь архитектур \\ \hline
+WASM & WebAssembly & Вэб хөтөч дотор CPU дээр хурдан ажиллах кодын формат \\ \hline
+WebGL & Web Graphics Library & Вэб хөтөчөөс GPU ашиглан график зурах технологи \\ \hline
+WebGPU & WebGPU & Вэб хөтөчөөс GPU-ийн тооцооллыг шууд ашиглах шинэ технологи \\ \hline
+YOLO & You Only Look Once & Объект илрүүлэлтийг нэг алхамд гүйцэтгэдэг загваруудын гэр бүл \\ \hline
+\end{longtable}
+}
+
+\bigskip
+\noindent\textbf{Нэр томьёо}
+
+{\small
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.28\textwidth}|>{\raggedright\arraybackslash}p{0.65\textwidth}|}
+\hline
+\textbf{Нэр томьёо} & \textbf{Тайлбар} \\ \hline
+\endhead
+Араг яс (skeleton) & Гол цэгүүдийг хооронд нь шугамаар холбосон хүний биеийн энгийн дүрслэл \\ \hline
+Гол цэг (keypoint) & Хамар, мөр, тохой, өвдөг зэрэг хүний биеийн анатомийн тодорхой цэг \\ \hline
+Гулсах цонх (sliding window) & Хугацааны цувааны тодорхой урттай хэсгийг шилжүүлэн тооцоолол хийх арга \\ \hline
+Дээрээс доош (top-down) & Эхлээд хүн бүрийг хүрээгээр илрүүлж, дараа нь хүрээ тус бүрт гол цэгийг тодорхойлдог HPE арга \\ \hline
+Доороос дээш (bottom-up) & Эхлээд бүх гол цэгийг илрүүлж, дараа нь хүн тус бүрээр бүлэглэдэг HPE арга \\ \hline
+Жинхэнэ утга (ground truth) & Гараар тэмдэглэсэн, зөв гэж тооцогдох жишиг өгөгдөл \\ \hline
+Консенсус (consensus) & Бусад загваруудын гаргасан байрлалын медиан; жинхэнэ утга байхгүй үед жишиг болгон ашиглана \\ \hline
+Корреляц (correlation) & Хоёр цуваа хэр зэрэг хамт өөрчлөгдөж байгааг $-1$-ээс 1 хүртэлх утгаар илэрхийлэх хэмжүүр \\ \hline
+Сервер (server) & Хэрэглэгчийн хүсэлтээр тооцоолол гүйцэтгэж үр дүнг буцаадаг алсын компьютер; энэ ажилд видеоны гол цэгийг тодорхойлно \\ \hline
+Синхрончлол (synchronization) & Хоёр болон түүнээс дээш хүний хөдөлгөөн хэлбэр, хэмнэл, цаг хугацааны хувьд хэр нийцэж буй байдал \\ \hline
+Тооцооллын backend (execution provider) & Загварын тооцооллыг гүйцэтгэх технологи (WebGPU, WASM, CUDA гэх мэт) \\ \hline
+Үений өнцөг (joint angle) & Гурван гол цэгээр тодорхойлогдох үений нугаралтын өнцөг, жишээлбэл тохойн өнцөг \\ \hline
+Хөндлөн корреляц (cross-correlation) & Нэг цувааг цаг хугацааны дагуу шилжүүлэн нөгөөтэй нь харьцуулж, цагийн хоцрогдлыг олох арга \\ \hline
+Хяналттай өгөгдөл (synthetic data) & Хоцрогдол, зай зэрэг ялгааг судлаач өөрөө тогтоож үүсгэсэн туршилтын өгөгдөл \\ \hline
+Цагийн хоцрогдол (lag) & Нэг хүний хөдөлгөөн нөгөөгөөсөө хэдэн кадр эсвэл секундээр хоцорч байгааг илэрхийлэх утга \\ \hline
+Чичиргээ (jitter) & Хүн хөдөлгөөнгүй байсан ч дараалсан кадруудад гол цэгийн байрлал санамсаргүй үсрэх үзэгдэл \\ \hline
+Шуугиан тэгшитгэх (smoothing) & Хөрш кадруудын утгыг ашиглан чичиргээг багасгаж, хөдөлгөөний муруйг гөлгөр болгох алхам \\ \hline
+\end{longtable}
+}
+
+\renewcommand{\arraystretch}{1}
+\doublespace
+\newpage
+\endgroup
