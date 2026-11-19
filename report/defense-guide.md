@@ -1,0 +1,266 @@
+# Defense prep guide
+
+Deck: https://claude.ai/artifact/Us82Ur7UKPjEDt1iB9aTDP (17 slides, about 12–14 min).
+The full script is in each slide's speaker notes and is copied at the bottom of this file.
+
+Fill in before the defense: on slide 1, `[Оюутны нэр]` and `[удирдагчийн нэр]`.
+
+---
+
+## 1. What to learn (in priority order)
+
+You built it, so you know the code. The committee will test whether you understand the **ideas**.
+Each item has what you must be able to say in one or two sentences.
+
+### Must know (they will ask)
+
+1. **What HPE is, top-down vs bottom-up.**
+   Bottom-up (OpenPose, YOLO-pose) finds all keypoints in one pass, then groups them into people.
+   Top-down (RTMPose, ViTPose) finds each person's box first, then runs the pose model on each crop,
+   so it is more accurate but gets slower as the number of people grows (39 ms per person for RTMPose-m).
+2. **Why RTMPose-m.** It detected all 3 people in 100 % of frames, had the best keypoint agreement (93.4 %),
+   the lowest jitter (1.49) and the most stable limb lengths. It was slower (119 ms/frame), but this system analyses
+   recordings afterwards, so accuracy matters more than speed. The top 3 models were within 2 points.
+3. **How you compared models without ground truth.** PCK@0.05 against the median of the other models
+   (agreement, not true accuracy), jitter, limb-length CV, speed. Know the weakness: models from the same family agree more.
+4. **SimCC** (how RTMPose outputs keypoints): it treats x and y as two 1-D classification problems over bins,
+   instead of a 2-D heatmap. The confidence is the peak value, min(x, y).
+5. **Why joint angles, not coordinates.** Angles don't depend on where the person stands, their height,
+   or their distance from the camera. Know `θ = atan2(|u×v|, u·v)` and why it's better than `arccos` near 0° and 180°.
+6. **The three score parts, explained simply:**
+   - `S_pose`: are the angles the same? Weighted mean of the angle differences ÷ 180°.
+   - `S_corr`: do they move together? Pearson correlation of each angle series, mapped to 0–1.
+   - `S_lag`: how late is one person? Cross-correlation of the angle **velocities**, and τ* is the best shift.
+     `S_lag = 1 − |τ*|/τ_max`, with τ_max = 1.5 s. If the peak ρ_max < ρ_min = 0.3, the lag isn't trusted.
+   - Final score: `S = 100·(S_pose + S_corr + S_lag)/3`, using a 2 s window centred on each frame.
+7. **Pearson correlation and cross-correlation.** Be able to say what each measures. Cross-correlation is
+   correlation computed at many time shifts, and the best shift is the lag. Why velocities: they remove the
+   constant offset between two people's poses, so only the timing of the motion counts.
+8. **Savitzky–Golay filter.** It fits a small polynomial (quadratic here) in a sliding window (≈0.3 s = 9 frames).
+   It smooths jitter but keeps the peaks of a motion better than a moving average.
+9. **Why controlled (synthetic) videos.** Real videos have no "true" sync level. Copying one dancer with
+   FFmpeg gives you known answers (e.g. a 5-frame delay = 0.2 s).
+10. **Your key numbers** (memorise these):
+
+| What | Number |
+|---|---|
+| Lag found, 0–1 s | 8 / 8 exact, 0 ms error |
+| Score vs lag | 99.8 → 54.3 |
+| Mirror | 99.3 (mirror mode picked in 100 % of windows) |
+| Different motion | 45.4–62.0 |
+| Late person / limb (keypoint level) | 18 of 20 correct |
+| Robust down to | 50 % person size, 360p, 10 fps |
+| Fails below | ≈140 px person height, 240p (person count) |
+| Browser vs server | 113.8 vs 50.8 ms/frame, 2.2× faster, keypoints differ 0.61 px (median) |
+| Real videos | martial arts 82.6, dances 67.0–79.1 |
+
+### Good to know (likely follow-ups)
+
+- **COCO 17 keypoints** vs MediaPipe's 33, and why COCO is enough (your 8 angles only need shoulders, elbows, wrists, hips, knees and ankles).
+- **ONNX, ONNX Runtime, WebGPU vs WebGL vs WASM, CUDA**: what each one is, in one line.
+- **Mirror mode**: swap the second person's left and right joints, and pick mirror only if it scores ≥ 5 points higher.
+- **Body-part weights**: general 50/25/25, ballet 20/60/20, hand dance 60/20/20. These were set by you, not learned from data (a limitation).
+- **Out-of-sync moments**: off windows covering ≥ 1 s. A late limb is found by shifting it by τ and checking that the angle gap shrinks by ≥ 3° and ≥ 20 %.
+- **The browser frame bug you found**: seeking to exactly i/fps gave the previous frame, so frames repeated or got skipped. Seeking to the middle of the frame fixed it. This is a good story to tell: it shows you checked your own data.
+- **S_lag instability near ρ_min and the "ramp" fix**: a window whose ρ_max sits near 0.3 flips S_lag between ≈0.9 and 0.
+
+---
+
+## 2. Questions to rehearse (with short answers)
+
+- **Why not just use the raw keypoint distance?** It depends on body size, position and camera distance. Angles don't.
+- **Is a high score "good dancing"?** No. It measures how similar and how well-timed the motion is, not technique or quality.
+- **How do you know the score is correct?** On controlled videos we know the answer and the algorithm matched it (0 ms error, correct ordering). For real videos there's no ground truth, so the score was checked on how it ranks them: below the copy (99.8), above different motion (≤ 62).
+- **Why ρ_min = 0.3 and not 0.5?** At 0.5 it rejected real synchronized motion. 0.3 was tuned on controlled pairs: different-motion videos had ρ_max < 0.3.
+- **Why is a 1 s lag close to "different motion"?** The score parts saturate. Look at the detected lag and ρ_max together, not the score alone.
+- **What if people swap places or hide each other?** Not supported. People are assigned left to right; this is a stated assumption of the method.
+- **Why 2D and not 3D?** One ordinary camera, and it's cheaper. The cost is that people must face the camera in roughly the same direction.
+- **Why does the server run faster but give the same result?** It runs the same ONNX models, on CUDA instead of WebGPU. Small differences come from video decoding.
+- **Why equal weights w₁ = w₂ = w₃?** No labelled data to fit them. That's a stated limitation.
+- **What was hardest?** Pick one honestly, e.g. testing without ground truth (so you built the controlled videos), or the frame-seek bug.
+
+---
+
+## 3. What to do before the defense
+
+1. **Fill in the names** on slide 1 and check every slide in Present mode.
+2. **Read the script out loud 3 times.** Don't memorise it word for word. Memorise the first sentence of each slide and the numbers.
+3. **Time yourself.** Aim for 12–14 min. If you run long, shorten slides 6 (angles) and 8 (multi-person) first.
+4. **Prepare a live demo or a short screen recording**: open a video, process it, and show the score next to the video plus the out-of-sync moments. Have the recording ready in case the live demo fails.
+5. **Have backups**: the PDF of the report, the deck exported to PDF or PPTX (use Export in the deck), and the server running if you will demo it.
+6. **Practise the 10 questions above** with a friend. Answer in 2–3 sentences, and then stop talking.
+7. When you don't know an answer, say: «Энэ асуултыг судалж үзээгүй, гэхдээ миний бодлоор …». Don't make things up.
+
+---
+
+## 4. Script (speaker notes, slide by slide)
+
+### 1. Спортын шинжилгээнд хүний байрлалын тооцооллыг ашиглах нь
+
+Сайн байна уу, эрхэм багш нар аа. Намайг [нэр] гэдэг. Миний бакалаврын судалгааны ажлын сэдэв бол «Спортын шинжилгээнд хүний байрлалын тооцооллыг ашиглах нь».
+
+Товчхондоо: энгийн нэг камераар авсан видеоноос хоёр болон түүнээс олон хүний хөдөлгөөн хэр синхрон байгааг 0–100 оноогоор үнэлдэг, мөн хэн, хэзээ, биеийн аль хэсгээрээ зөрж байгааг хэлдэг систем хийсэн.
+
+Эхлээд яагаад энэ сэдвийг сонгосноо, дараа нь систем ба алгоритм, сүүлд нь туршилтын үр дүнгээ танилцуулна.
+
+### 2. Синхрончлолыг өнөөдөр нүдээр үнэлдэг
+
+Хоёр болон түүнээс олон хүний хөдөлгөөний синхрончлол нь бүлгийн бүжиг, спортын хос төрөл, багийн дасгал, мөн сэргээн засах эмчилгээнд гүйцэтгэлийн чанарыг тодорхойлдог чухал үзүүлэлт.
+
+Гэтэл өнөөдөр үүнийг ихэвчлэн шүүгч эсвэл дасгалжуулагч нүдээр харж үнэлдэг. Ийм үнэлгээ субъектив, тоон хэмжүүргүй, дахин давтахад өөр гарч болно. Хэн, хэзээ, биеийн аль хэсгээрээ хоцорсныг тодорхой хэлэх боломжгүй.
+
+Motion capture гэх мэт тоног төхөөрөмж нарийвчлалтай ч үнэтэй, хүн биедээ мэдрэгч зүүх шаардлагатай тул өдөр тутам хэрэглэхэд тохиромжгүй.
+
+Иймд би энгийн нэг камерын бичлэгээс хүний байрлал тодорхойлох буюу HPE загвараар биеийн гол цэгүүдийг олж, түүнээс синхрончлолын оноо тооцоолох аргыг санал болгосон.
+
+### 3. Олон хүний хөдөлгөөний синхрончлолыг тоон хэмжүүрээр үнэлэх алгоритм боловсруулах
+
+Судалгааны ажлын зорилго нь хоёр болон түүнээс олон хүний видеоноос HPE загвараар биеийн гол цэгүүдийг олж, гол цэгийн байрлал болон үений өнцөгт үндэслэн хөдөлгөөний синхрончлолыг тоон хэмжүүрээр тооцоолох алгоритм боловсруулах.
+
+Үндсэн тохиолдол нь хоёр хүн. Хүний тоо нэмэгдвэл хүмүүсийг хос хосоор нь харьцуулж, дундажлан бүлгийн оноо гаргана.
+
+Зорилтуудыг дөрвөн хэсэгт нэгтгэж болно: нэгд, онол болон одоо байгаа аргуудыг судлах; хоёрт, HPE загваруудыг харьцуулж сонгох; гуравт, алгоритмаа боловсруулах; дөрөвт, хариу нь урьдчилан мэдэгдэж буй бичлэгүүд дээр туршиж, нарийвчлал, хурд, хязгаарлалтыг тогтоох.
+
+### 4. Видеоноос оноо хүртэл зургаан алхам
+
+Систем зургаан алхамтай.
+
+Эхлээд YOLO11n загвар кадр бүрээс хүмүүсийн хүрээг олно. Дараа нь хүн бүрийг тайрч RTMPose-m загварт өгч, COCO форматын 17 гол цэг гаргана. Үүнийг дээрээс доош буюу top-down арга гэдэг.
+
+Гуравдугаарт, хүмүүсийг гуяны дунд цэгийн x координатаар зүүнээс баруун тийш эрэмбэлж дугаарлана. Хүний тоог эхний 2 секундэд хамгийн олон давтагдсан илрүүлэлтийн тоогоор автоматаар тодорхойлно.
+
+Дөрөвдүгээрт, итгэлцэл нь 0.3-аас бага цэгийг найдваргүй гэж хасаад 1 секундээс богино завсрыг шугаман интерполяцаар нөхнө. Чичиргээг Савицкий-Голейн шүүлтүүрээр тэгшитгэнэ.
+
+Тавдугаарт, 8 үений өнцөг тооцоолж, зургаадугаарт синхрончлолын оноо болон зөрсөн мөчүүдийг гаргана.
+
+Систем вэб хөтөч дээр WebGPU-ээр, эсвэл Python сервер дээр CUDA-аар ажиллах хоёр горимтой. Хоёулаа ижил форматтай үр дүн гаргадаг.
+
+### 5. Таван загвараас RTMPose-m-г сонгосон
+
+Загвар сонгохдоо гол цэгийн тоо, олон хүнийг зэрэг илрүүлэх чадвар, гол цэгийн нарийвчлал, хурд, ашиглахад хялбар байдлыг шалгуур болгосон.
+
+Таван загварыг (YOLOv8n, YOLO11n, RTMPose-m, ViTPose-B, MediaPipe Pose) гурван хүнтэй, 34 секундийн нэг ижил тулааны урлагийн бичлэг дээр ажиллуулсан.
+
+Бичлэгт гол цэгийн жинхэнэ байрлал буюу ground truth байхгүй учраас шууд бус үзүүлэлт ашигласан: бусад загваруудын медиантай хэр нийцэж байгаа (PCK@0.05), кадр хооронд хэр чичирч байгаа, гар хөлийн урт хэр тогтвортой байгаа.
+
+MediaPipe кадрын зөвхөн 30%-д гурван хүнийг бүгдийг нь олсон тул олон хүнд тохиромжгүй. YOLO загварууд гурав дахин хурдан, эхний гурван загварын жинлэсэн оноо ердөө 2 онооны зөрүүтэй. Гэхдээ гол цэгийн чанараараа RTMPose-m хамгийн сайн: тохирол 93.4%, чичиргээ хамгийн бага (1.49), гар хөлийн урт хамгийн тогтвортой. Чичиргээ бага байх нь үений өнцөг, улмаар синхрончлолын оноо найдвартай байхад шууд нөлөөлнө. RTMPose хүн бүрийг тусад нь боловсруулдаг тул нэг кадрт 119 мс буюу удаан, гэхдээ манай систем бичлэгийг дараа нь шинжилдэг учраас хурднаас илүү нарийвчлалыг чухалчилж RTMPose-m-г сонгосон.
+
+### 6. Байрлалыг 8 үений өнцгөөр дүрсэлнэ
+
+Гол цэгийн координатыг шууд харьцуулбал хүмүүс өөр газар зогссон, өөр өндөртэй, камераас өөр зайд байгаа нь нөлөөлнө. Тиймээс би үений өнцгийг ашигласан. Өнцөг нь эдгээрээс хамаардаггүй.
+
+Кадр бүрт хүн бүрийн 8 өнцөг тооцоолно: хоёр тохой, хоёр мөр, хоёр гуя, хоёр өвдөг. Өнцөг бүр гурван гол цэгээс гарна. Жишээ нь тохойн өнцөг бол мөр, тохой, бугуй. Тооцоололд atan2 хэлбэрийг ашигласан нь 0 ба 180 градусын орчимд арккосинусаас илүү тоон алдаа багатай.
+
+Спорт бүрт биеийн аль хэсэг чухал нь өөр. Тиймээс биеийн хэсгийн жинг тохируулж болно: ерөнхий хувилбарт гар 50%, хөл 25%, их бие 25%; балетад хөл 60%; гарын бүжигт гар 60%. Жинг тухайн хэсгийн үеүдэд тэнцүү хуваана.
+
+### 7. Гурван бүрэлдэхүүнтэй оноо
+
+Синхрончлолыг гурван асуултаар үнэлнэ.
+
+Нэгд, S_pose: хоёр хүн ижил байрлалтай байна уу? Цонхонд үе бүрийн өнцгийн абсолют зөрүүний дунджийг аваад, жингээр нэгтгэж 180 градуст хуваана.
+
+Хоёрт, S_corr: хамт хөдөлж байна уу? Үе бүрийн өнцгийн цуваануудын Пирсоны корреляцыг аваад 0–1 мужид шилжүүлнэ.
+
+Гуравт, S_lag: нэг нь нөгөөгөөсөө хэр хоцорч байна вэ? Өнцгийн хурдны цуваанд хөндлөн корреляц хийж, хамгийн их утгатай шилжилт τ*-г олно. Хоцрогдол их байх тусам оноо буурна. Хоёр хүн огт өөр хөдөлгөөн хийвэл хөндлөн корреляц санамсаргүй шилжилт сонгодог тул оргил нь 0.3-аас бага бол хоцрогдолд итгэхгүй.
+
+Эцсийн оноо нь гурвын дундажийг 100-аар үржүүлсэн. Кадр бүрт тэр кадрыг голдоо агуулсан 2 секундийн цонх үүсгэдэг тул видео тоглуулах үед тухайн мөчийн оноог шууд харуулж болно.
+
+Мөн хөдлөөгүй үе, жишээ нь стандарт хазайлт нь 3 градусаас бага үеийг корреляц болон хоцрогдлоос хасдаг, учир нь тэдгээрийн корреляц зөвхөн шуугианаас хамаарна.
+
+### 8. Хэн, хэзээ, аль хэсгээрээ зөрж байна
+
+Гурав ба түүнээс олон хүнтэй үед гол хүн байхгүй, бүгд тэгш гэж үзээд хүн бүрийг бусадтай нь хос хосоор нь харьцуулна. Гурван хүнд 3 хос, дөрвөн хүнд 6 хос. Бүлгийн оноо нь бүх хосын дундаж, харин хүн бүрийн оноо нь тухайн хүний оролцсон хосуудын дундаж. Хамгийн бага оноотой хүн бүлгээсээ хамгийн их зөрж байна гэсэн үг.
+
+Зарим бүжиг толин тусгал байдлаар хийгддэг: нэг нь баруун гараа өргөхөд нөгөө нь зүүн гараа өргөнө. Тиймээс цонх бүрт ердийн болон толин тусгал гэсэн хоёр горимоор тооцоолж, толин тусгал нь 5-аас дээш оноогоор илүү үед л сонгоно.
+
+Систем зөвхөн нэг оноо биш, синхрончлол алдагдсан мөчүүдийг ч олдог. Тухайн хосын оноо өөрийн медианаас мэдэгдэхүйц доош унасан, эсвэл бүх бие эсвэл аль нэг гар, хөл 0.2 секундээс илүү хоцорсон цонхнууд 1 секундээс урт үргэлжилбэл нэг мөч болно. Хоцорсон мөчийг тодорхойлохдоо тухайн гар эсвэл хөлийг цагаар шилжүүлж үзээд өнцгийн зөрүү хангалттай багасаж байвал хоцорсон гэж үзнэ.
+
+### 9. Нэг хүнээс хариу нь мэдэгдэж буй 32 бичлэг
+
+Алгоритмыг шалгахад хамгийн том асуудал нь бодит бичлэгт «зөв хариу» байдаггүй явдал. Хоёр бүжигчин хэр синхрон байгааг хэн ч яг тоогоор хэлж чадахгүй.
+
+Тиймээс би нэг бүжигчний бичлэгийг FFmpeg-ээр хуулж, хариу нь урьдчилан мэдэгдэж буй хос бичлэгүүд автоматаар үүсгэсэн. Жишээ нь хуулбарыг яг 5 кадраар хоцроовол алгоритм 0.2 секунд гэж олох ёстой.
+
+Нийт 32 бичлэг: хоцрогдол 0-ээс 1 секунд хүртэл, толин тусгал, өөр хөдөлгөөн, хүний хэмжээ, нягтаршил, кадрын давтамж, мөн 3 ба 4 хүнтэй бөгөөд нэг нь хоцорсон бичлэгүүд.
+
+Үүнээс гадна бодит бичлэг болох гурван хүнтэй тулааны урлагийн бичлэг болон гурван бүжигчний дөрвөн бүжгийн бичлэг дээр туршсан.
+
+### 10. Бүх хоцрогдлыг 0 мс алдаатай олсон
+
+Эхний туршилт: хуулбарыг 0-ээс 25 кадр буюу 0-ээс 1 секунд хүртэл хоцроосон 8 бичлэг. Алгоритм найман тохиолдол бүгдэд нь хоцрогдлыг яг зөв, өөрөөр хэлбэл 0 миллисекундын алдаатай олсон. Зүүн графикт олдсон ба жинхэнэ хоцрогдол нэг шулуун дээр байгааг харж болно.
+
+Хоцрогдол нэмэгдэх тусам нийт оноо 99.8-аас 54.3 хүртэл жигд буурсан. Энэ нь оноо хоцрогдлыг зөв тусгаж байгааг харуулна.
+
+Бүрэлдэхүүн тус бүрээр харвал хамгийн мэдрэмтгий нь S_corr буюу корреляц: 0.2 секундийн хоцрогдолд л 0.68 хүртэл унана. S_pose харин удаан буурдаг, учир нь хоцорсон ч байрлал нь ойролцоо хэвээр байдаг.
+
+### 11. Нөхцлүүдийг зөв дарааллаар ялгасан
+
+Хоёр дахь туршилт: нөхцлүүдийг ялгаж чадах уу?
+
+Синхрон хуулбар 99.8, толин тусгал хуулбар 99.3 оноо авсан. Толин тусгалд цонхнуудын 100%-д толин тусгал горим зөв сонгогдсон.
+
+0.2–0.5 секундийн хоцрогдолтой бичлэгүүд 64 – 81, огт өөр хөдөлгөөн хийсэн бичлэгүүд 45 – 62 оноо авсан. Тэгэхээр синхрон, хоцрогдолтой, өөр хөдөлгөөн гэсэн хүлээгдэж буй дарааллаар ялгарсан.
+
+Өөр хөдөлгөөнд хөндлөн корреляцын оргил 0.3-аас бага гарсан тул хоцрогдлын оноо 0 болсон, энэ нь ρ_min босго ажиллаж байгааг харуулна.
+
+Нэг анхаарах зүйл: 1 секундийн хоцрогдлын оноо 54.3 нь өөр хөдөлгөөнтэй ойролцоо. Тиймээс тэдгээрийг ялгахдаа зөвхөн оноо биш, олдсон хоцрогдол болон ρ_max-ийг хамт харах хэрэгтэй.
+
+### 12. Чанар буурахад тогтвортой, хоцорсон хүнийг олно
+
+Гурав дахь туршилт: бичлэгийн чанар муудахад үр дүн өөрчлөгдөх үү?
+
+Хүний хэмжээг 50% хүртэл багасгах, нягтаршлыг 360p хүртэл бууруулах, кадрын давтамжийг 10 кадр/с хүртэл бууруулахад оноо болон олдсон хоцрогдол бараг өөрчлөгдөөгүй. Тэгэхээр арга энгийн камер, бага чанартай бичлэгт ч ажиллах боломжтой.
+
+Харин хүний өндөр ойролцоогоор 140 пикселээс бага, эсвэл 240p-д хүний тоог автоматаар тоолох алхам алдаа гаргасан. Энэ нь аргын гол хязгаарлалт.
+
+Олон хүнтэй туршилтад 3 ба 4 хүнтэй бичлэг үүсгэж, нэг хүнийг хоцроосон. Хоёр тохиолдолд хоцорсон хүн хамгийн бага S_i оноотой гарч, зөв илэрсэн.
+
+### 13. Сервер 2.2 дахин хурдан, үр дүн нь ижил
+
+Систем вэб хөтөч болон Python сервер гэсэн хоёр горимтой. Нэг бичлэгийг хоёр горимоор боловсруулж харьцуулсан.
+
+Сервер NVIDIA RTX 2060 дээр CUDA-аар нэг кадрыг 51 мс-д, вэб хөтөч WebGPU-ээр 114 мс-д боловсруулсан. Бодит хурдаар сервер секундэд 17.4 кадр, хөтөч 5.5 кадр, өөрөөр хэлбэл сервер 2.2 дахин хурдан.
+
+Үр дүнгийн хувьд хоёр горим бараг ижил: гурван хүнийг кадрын 100%-д илрүүлсэн, гол цэгийн зөрүү медианаар 0.61 пиксел, бүлгийн оноо 82.6 ба 81.4. Энэ бага зөрүү нь видеог задлах аргын ялгаанаас гардаг.
+
+Харьцуулах явцад нэг алдаа олсон: хөтөч видеог кадрын яг хил рүү шилжүүлэхэд өмнөх кадрыг өгч, зарим кадр давхардаж, зарим нь алгасагддаг байсан. Кадрын дунд руу шилжүүлдэг болгож зассан.
+
+### 14. Бодит хүмүүсийн оноо 67–83
+
+Сүүлд нь бодит бичлэг дээр туршсан.
+
+Гурван хүнтэй тулааны урлагийн бичлэгт бүлгийн оноо 82.6 гарсан. Хүн бүрийн оноо 81.6, 84.1, 82.0 бөгөөд 1-р хүн бүлгээсээ хамгийн их зөрж байна. Бүх хосод гарын оноо хамгийн бага гарсан нь хурдан хөдөлдөг бугуйн цэгүүд илүү чичирдэгтэй холбоотой. Графикт кадр бүрийн оноо харагдаж байгаа бөгөөд оноо унасан хэсгүүд нь систем олсон зөрсөн мөчүүд.
+
+Гурван бүжигчний дөрвөн бүжгийн бичлэг 67-оос 79 оноо авсан.
+
+Энэ нь нэг хүний хуулбараас (99.8) бага, харин өөр хөдөлгөөнөөс (62 хүртэл) их. Учир нь бодит хүмүүс ижил бүжиг хийсэн ч хөдөлгөөний далайц, хэлбэр, хэмнэл нь бага зэрэг ялгаатай байдаг. Тэгэхээр оноо бодит байдлыг зөв тусгаж байна.
+
+### 15. Аргын хязгаарлалт
+
+Туршилтын үр дүнгээс аргын дараах хязгаарлалтуудыг тогтоосон.
+
+Нэгд, хүн хэт жижиг, өндөр нь 140 пикселээс бага эсвэл бичлэг 240p үед хүний тоог автоматаар буруу тоолно.
+
+Хоёрт, 1 секунд ба түүнээс их хоцрогдол оноогоороо өөр хөдөлгөөнтэй ойролцоо гардаг.
+
+Гуравт, өнцгийг 2D зураг дээр тооцоолдог тул хүмүүс камерт ижил чиглэлээр харсан байх шаардлагатай. Мөн хүмүүс байраа солихгүй, удаан халхлагдахгүй гэж үзсэн.
+
+Дөрөвт, хоцрогдлын оноо ρ_min босгын орчимд огцом үсэрдэг. Үүнийг тогтворжуулах налуу хувилбарыг санал болгосон.
+
+Эцэст нь, биеийн хэсгийн болон онооны жингүүдийг би өөрөө тогтоосон бөгөөд өгөгдлөөр тохируулаагүй.
+
+### 16. Энгийн нэг камерын бичлэгээс хэн, хэзээ, биеийн аль хэсгээрээ хэр зөрж байгааг тоогоор хэлж чадна
+
+Дүгнэж хэлэхэд, би энгийн нэг камерын бичлэгээс олон хүний хөдөлгөөний синхрончлолыг 0–100 оноогоор, давтагдах боломжтойгоор үнэлдэг систем боловсруулсан.
+
+Таван HPE загварыг харьцуулж RTMPose-m-г сонгосон. Үений өнцөгт суурилсан, байрлал, корреляц, хоцрогдол гэсэн гурван бүрэлдэхүүнтэй алгоритм боловсруулсан.
+
+Хяналттай туршилтад 0–1 секундийн бүх хоцрогдлыг 0 мс алдаатай олсон, нөхцлүүдийг зөв дарааллаар ялгасан, толин тусгалыг таньсан, 3 ба 4 хүнтэй бичлэгт хоцорсон хүнийг олсон. Гол цэгийн түвшинд хоцроосон 20 тохиолдлын 18-д хоцорсон хүн болон мөчийг зөв тодорхойлсон. Сервер горим 2.2 дахин хурдан, үр дүн нь ижил.
+
+Тиймээс систем хэн, хэзээ, биеийн аль хэсгээрээ хэр зөрж байгааг тоон хэлбэрээр хэлж чадна.
+
+### 17. Баярлалаа
+
+
+Анхаарал хандуулсанд баярлалаа. Асуулт байвал хариулахад бэлэн байна.
+
