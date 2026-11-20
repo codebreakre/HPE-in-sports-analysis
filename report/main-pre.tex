@@ -26,7 +26,12 @@
 
 % Гарчгийг автоматаар оруулна
 \setcounter{tocdepth}{1}
+% Гарчгийг нэг хуудсанд багтаахын тулд 1.24 мөрийн зайтай (dics.sty нь энд doublespace тавьдаг)
+\begingroup
+\let\doublespace\oneandhalfspace
 \tableofcontents
+\endgroup
+\doublespace
 
 % Зургийн жагсаалтыг автоматаар оруулна
 \listoffigures
