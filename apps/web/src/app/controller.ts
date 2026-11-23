@@ -29,6 +29,8 @@ export interface Settings {
   autosave: boolean;
   /** Where videos are processed: in this browser, or on the Python HPE server (apps/server) */
   backend: Backend;
+  /** Playback speed of the result videos (1 = normal); a viewer setting, kept when another run is opened */
+  playbackSpeed: number;
 }
 
 export type Backend = "browser" | "server";
@@ -116,7 +118,7 @@ const INITIAL_STATE: AppState = {
   sourceInfo: "",
   dataFiles: [],
   selectedDataFile: null,
-  settings: { conf: 0.25, lateSec: DEFAULT_EPISODE_SETTINGS.lagSec, fps: 30, exportMp4: true, autosave: true, backend: "browser" },
+  settings: { conf: 0.25, lateSec: DEFAULT_EPISODE_SETTINGS.lagSec, fps: 30, exportMp4: true, autosave: true, backend: "browser", playbackSpeed: 1 },
   progress: null,
   progressText: "",
   webcamOn: false,

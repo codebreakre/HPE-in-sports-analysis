@@ -49,7 +49,7 @@ Use Chrome or Edge (WebGPU + WebCodecs). Needs internet on first load: ONNX Runt
 - **Image**: choose a file; results appear immediately.
 - **Webcam**: live inference; on stop you get a WebM recording plus results.
 - **Saved results** (header navigation): every run in `results/<model>/`, filterable by video and model (RTMPose-m by default; *All models* shows the comparison runs). Click a run to play its annotated video and see its stats, tracking chart and keypoint table, read from the saved JSON; nothing is processed again. Runs saved before synchronization existed get a *Compute synchronization* button.
-- **Synchronization**: after a video run (and on Saved results), the annotated video plays with the scores of the current moment beside it (group, each pair, arms / legs / torso, lag, mirror mode) and a score timeline under it (click to seek).
+- **Synchronization**: after a video run (and on Saved results), the annotated video plays with the scores of the current moment beside it (group, each pair, arms / legs / torso, lag, mirror mode) and a score timeline under it (click to seek). Every result video has a speed bar under it (0.1× to 2×) for watching movements slowly; the speed stays when another run is opened.
 - **Resolution check** (header navigation): charts comparing `data/resolution-check-data/poomsae-{360,480,720}reso.mp4` across the six compared models: tracking, keypoint confidence, inference time and keypoint shift vs. 720p. The analysis is saved in `results/resolution-check/` (re-create it with `python (repository root)
 analysis/resolution_check.py`, needs pandas + matplotlib, then *Reload analysis*).
 
@@ -102,7 +102,8 @@ src/                        (TypeScript + React, UI built with Mantine)
   components/               React UI: AppHeader, ControlPanel, Stage, ResultsPanel,
                             StatGrid, KeypointTable, TrackingSection, TrackingChart,
                             SavedResultsPage, ResolutionCheckPage, GroupedBarChart, KeypointHeatmap,
-                            SyncPanel (live scores beside the video + summary), SyncTimeline
+                            SyncPanel (live scores beside the video + summary), SyncTimeline,
+                            PlaybackVideo (video + playback speed bar, Settings.playbackSpeed)
   models/
     index.ts                the model, RTMPose-m (id = results folder, weights file, metadata)
     topdown.ts              person detector → crop → RTMPose → SimCC decode

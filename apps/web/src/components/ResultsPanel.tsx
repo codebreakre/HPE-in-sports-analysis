@@ -7,6 +7,7 @@ import type { RunView } from "../app/controller";
 import type { OutputFile, OutputKind, RunMetrics } from "../types";
 import type { Angles, SyncResult } from "../sync/index.ts";
 import { SyncSummary, SyncTitle, SyncedVideo } from "./SyncPanel";
+import { PlaybackVideo } from "./PlaybackVideo";
 import { KeypointTable } from "./KeypointTable";
 import { StatGrid, type Stat } from "./StatGrid";
 import { TrackingSection } from "./TrackingSection";
@@ -111,7 +112,7 @@ function Downloads({ baseName, files, sync, angles }: { baseName: string; files:
       </Group>
       {videoIndex >= 0 && (sync
         ? <SyncedVideo src={urls[videoIndex]} sync={sync} angles={angles} />
-        : <video src={urls[videoIndex]} controls playsInline style={{ maxWidth: "100%", maxHeight: "60vh", borderRadius: 8, background: "black" }} />)}
+        : <PlaybackVideo src={urls[videoIndex]} style={{ width: "auto", maxWidth: "100%", maxHeight: "60vh" }} />)}
     </Stack>
   );
 }

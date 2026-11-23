@@ -8,6 +8,7 @@ import { useAppState, useController } from "../app/AppContext";
 import { savedRunKey, type SavedRunView } from "../app/controller";
 import { MODEL } from "../models";
 import { SyncSummary, SyncTitle, SyncedVideo } from "./SyncPanel";
+import { PlaybackVideo } from "./PlaybackVideo";
 import { resultsUrl } from "../api";
 import type { SavedRunSummary } from "../types";
 import { KeypointTable } from "./KeypointTable";
@@ -158,8 +159,7 @@ function RunDetail({ view }: { view: SavedRunView }) {
           ? <SyncedVideo src={resultsUrl(media)} sync={view.sync.data} angles={view.syncAngles} />
           : media && (media.endsWith(".png")
             ? <img src={resultsUrl(media)} alt={`${run.stem} annotated`} style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: 8 }} />
-            : <video key={media} src={resultsUrl(media)} controls playsInline preload="metadata"
-                style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: 8, background: "black" }} />)}
+            : <PlaybackVideo src={resultsUrl(media)} style={{ width: "auto", maxWidth: "100%" }} />)}
         {!media && <Text size="sm" c="dimmed">No annotated video was saved for this run.</Text>}
 
         <Stack gap="xs">

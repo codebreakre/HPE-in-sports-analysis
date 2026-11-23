@@ -10,6 +10,7 @@ import {
 } from "../sync/index.ts";
 import { StatGrid, type Stat } from "./StatGrid";
 import { SyncTimeline, fmt, nearestStep, pairColor } from "./SyncTimeline";
+import { PlaybackVideo } from "./PlaybackVideo";
 
 const PART_LABELS: Record<BodyPart, string> = { arms: "Arms", legs: "Legs", torso: "Torso" };
 const PARTS = Object.keys(PART_LABELS) as BodyPart[];
@@ -55,8 +56,7 @@ export function SyncedVideo({ src, sync, angles }: { src: string; sync: SyncResu
   return (
     <Stack gap="md">
       <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
-        <video ref={video} key={src} src={src} controls playsInline preload="metadata"
-          style={{ width: "100%", maxHeight: "70vh", borderRadius: 8, background: "black" }} />
+        <PlaybackVideo ref={video} src={src} />
         <LiveScores sync={sync} step={step} windows={windows} />
       </SimpleGrid>
       <SyncTimeline sync={sync} episodes={episodes} time={time} duration={duration || sync.frameCount / sync.fps} onSeek={seek} />

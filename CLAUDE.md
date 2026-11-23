@@ -89,7 +89,8 @@ src/                        (TypeScript + React, UI built with Mantine)
   components/               React UI: AppHeader, ControlPanel, Stage, ResultsPanel,
                             StatGrid, KeypointTable, TrackingSection, TrackingChart,
                             SavedResultsPage, ResolutionCheckPage, GroupedBarChart, KeypointHeatmap,
-                            SyncPanel (live scores beside the video + summary), SyncTimeline
+                            SyncPanel (live scores beside the video + summary), SyncTimeline,
+                            PlaybackVideo (video + playback speed bar, Settings.playbackSpeed)
   models/
     index.ts                the model, RTMPose-m (id = results folder, weights file, metadata)
     topdown.ts              person detector → crop → RTMPose → SimCC decode
